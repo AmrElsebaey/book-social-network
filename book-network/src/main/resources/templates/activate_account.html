@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Activation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .activation-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .activation-code {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <h2>Welcome, <span th:text="${userName}">User</span>!</h2>
+
+    <p>Thank you for registering. To activate your account, please use the activation code below or click the activation link:</p>
+
+    <div class="activation-code" th:text="${activationCode}">
+        123456
+    </div>
+
+    <p>Alternatively, you can activate your account by clicking the button below:</p>
+
+    <a th:href="${confirmationUrl}" class="activation-button">
+        Activate Account
+    </a>
+
+    <p>If you did not create an account, please ignore this email or contact our support team.</p>
+
+    <p>Best regards,<br>Your Company Name</p>
+
+    <small>This is an automated email. Please do not reply.</small>
+</div>
+</body>
+</html>
