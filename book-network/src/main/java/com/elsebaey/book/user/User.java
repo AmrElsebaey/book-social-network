@@ -1,5 +1,7 @@
 package com.elsebaey.book.user;
 
+import com.elsebaey.book.book.Book;
+import com.elsebaey.book.history.BookTransactionHistory;
 import com.elsebaey.book.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,6 +40,12 @@ public class User implements UserDetails, Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
