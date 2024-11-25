@@ -1,5 +1,6 @@
 package com.elsebaey.book.book;
 
+import com.elsebaey.book.history.BookTransactionHistory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +30,18 @@ public class BookMapper {
                 .shareable(book.isShareable())
                 .owner(book.getOwner().fullName())
 //                .cover()
+                .build();
+    }
+
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory bookTransactionHistory) {
+        return BorrowedBookResponse.builder()
+                .id(bookTransactionHistory.getBook().getId())
+                .title(bookTransactionHistory.getBook().getTitle())
+                .author(bookTransactionHistory.getBook().getAuthor())
+                .isbn(bookTransactionHistory.getBook().getIsbn())
+                .rate(bookTransactionHistory.getBook().getRate())
+                .returned(bookTransactionHistory.isReturned())
+                .returnApproved(bookTransactionHistory.isReturnApproved())
                 .build();
     }
 }

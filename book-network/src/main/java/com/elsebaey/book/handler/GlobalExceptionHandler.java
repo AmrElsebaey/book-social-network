@@ -1,5 +1,6 @@
 package com.elsebaey.book.handler;
 
+import com.elsebaey.book.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -90,5 +91,17 @@ public class GlobalExceptionHandler {
                                 .error(exp.getMessage())
                                 .build());
     }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp){
+        return ResponseEntity.
+                status(BAD_REQUEST).
+                body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .build());
+    }
+
+
 
 }
