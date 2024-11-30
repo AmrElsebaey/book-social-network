@@ -145,7 +145,7 @@ public class BookService {
             throw new OperationNotPermittedException("You cannot borrow your own book");
         }
         final boolean isAlreadyBorrowed = bookTransactionHistoryRepository
-                .isAlreadyBorrowed(bookId,user.getId());
+                .isAlreadyBorrowed(bookId);
         if(isAlreadyBorrowed) {
             throw new OperationNotPermittedException("The book is already borrowed");
         }
