@@ -14,7 +14,7 @@ Book Social Network is a full-stack application that enables users to manage the
 - Book Returning: Users can return borrowed books.
 - Book Return Approval: Functionality to approve book returns.
 
-#### Class diagram
+#### Class Diagram
 ![Class diagram](images/class-diagram.png)
 
 ## Technologies Used
@@ -29,3 +29,7 @@ Book Social Network is a full-stack application that enables users to manage the
 - OpenAPI and Swagger UI Documentation
 - Docker
 - GitHub Actions
+
+## Swagger Docs
+![Swagger Docs](images/swagger-docs.png)
+
