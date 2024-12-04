@@ -1,0 +1,157 @@
+<div class="register-wrapper">
+  <div class="register-container">
+    <div class="register-box">
+      <div class="register-header">
+        <h2>Create an Account</h2>
+        <p>Sign up to get started</p>
+      </div>
+
+      <!-- Error Handling -->
+      <div
+        *ngIf="errorMsg.length"
+        class="error-alert"
+      >
+        <ul>
+          <li *ngFor="let msg of errorMsg">{{ msg }}</li>
+        </ul>
+        <button
+          type="button"
+          class="close-btn"
+          (click)="clearErrors()"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Registration Form -->
+      <form
+        class="register-form"
+        (ngSubmit)="register()"
+        #registrationForm="ngForm"
+      >
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="firstName">First Name</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input
+                [(ngModel)]="registerRequest.firstName"
+                name="firstName"
+                type="text"
+                id="firstName"
+                placeholder="First Name"
+                required
+                minlength="2"
+                #firstNameInput="ngModel"
+              />
+            </div>
+            <div
+              *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"
+              class="error-text"
+            >
+              <small *ngIf="firstNameInput.errors?.['required']">First Name is required</small>
+              <small *ngIf="firstNameInput.errors?.['minlength']">Minimum 2 characters</small>
+            </div>
+          </div>
+
+          <div class="form-group half-width">
+            <label for="lastName">Last Name</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input
+                [(ngModel)]="registerRequest.lastName"
+                name="lastName"
+                type="text"
+                id="lastName"
+                placeholder="Last Name"
+                required
+                minlength="2"
+                #lastNameInput="ngModel"
+              />
+            </div>
+            <div
+              *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"
+              class="error-text"
+            >
+              <small *ngIf="lastNameInput.errors?.['required']">Last Name is required</small>
+              <small *ngIf="lastNameInput.errors?.['minlength']">Minimum 2 characters</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input
+              [(ngModel)]="registerRequest.email"
+              name="email"
+              type="email"
+              id="email"
+              placeholder="name@example.com"
+              required
+              email
+              #emailInput="ngModel"
+            />
+          </div>
+          <div
+            *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+            class="error-text"
+          >
+            <small *ngIf="emailInput.errors?.['required']">Email is required</small>
+            <small *ngIf="emailInput.errors?.['email']">Invalid email format</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input
+              [(ngModel)]="registerRequest.password"
+              name="password"
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              placeholder="Create a strong password"
+              required
+              minlength="8"
+              #passwordInput="ngModel"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+            >
+              <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+          <div
+            *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+            class="error-text"
+          >
+            <small *ngIf="passwordInput.errors?.['required']">Password is required</small>
+            <small *ngIf="passwordInput.errors?.['minlength']">Minimum 8 characters</small>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="register-button"
+          [ngClass]="{
+            'loading': registrationStatus === 'loading',
+            'success': registrationStatus === 'success',
+            'error': registrationStatus === 'error'
+          }"
+          [disabled]="registrationForm.invalid || registrationStatus === 'loading'"
+        >
+          <span>Create Account</span>
+        </button>
+
+        <div class="login-link">
+          Already have an account?
+          <a href="javascript:void(0)" (click)="login()">Sign In</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid px-4">
+    <!-- Logo/Brand -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+      <span class="fw-bold text-primary">BSN</span>
+    </a>
+
+    <!-- Mobile Toggle Button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navigation Links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/books" routerLinkActive="active">
+            <i class="fas fa-home-alt me-2"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/my-books"
+            routerLinkActive="active"
+            aria-current="page"
+          >
+            <i class="fas fa-book me-2"></i>My Books
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/my-waiting-list"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-heart me-2"></i>Waiting List
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/my-returned-books"
+            routerLinkActive="active"
+          >
+            <i class="fa-solid fa-truck-fast me-2"></i>Returned Books
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/my-borrowed-books"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-list-check me-2"></i>Borrowed Books
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right Side Content -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Search Form -->
+        <form class="d-flex align-items-center me-3" role="search">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Find a book"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-primary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <span class="text-muted me-2">Welcome,</span>
+            <span class="text-primary fw-bold">Elsebaey</span>
+          </div>
+          <button
+            class="btn btn-outline-danger btn-sm"
+            type="button"
+            (click)="logout()"
+            title="Logout"
+          >
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

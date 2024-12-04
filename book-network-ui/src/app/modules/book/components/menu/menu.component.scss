@@ -1,0 +1,45 @@
+.navbar {
+  transition: all 0.3s ease;
+
+  .navbar-brand {
+    font-size: 1.25rem;
+
+    img {
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .nav-link {
+    color: #6c757d;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      color: #007bff;
+    }
+
+    &.active {
+      color: #007bff;
+      font-weight: 700;
+    }
+
+    i {
+      margin-right: 8px;
+    }
+  }
+
+  .input-group {
+    .form-control {
+      &:focus {
+        box-shadow: none;
+        border-color: #007bff;
+      }
+    }
+  }
+}
