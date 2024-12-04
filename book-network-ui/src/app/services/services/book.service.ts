@@ -34,6 +34,8 @@ import { saveBook } from '../fn/book/save-book';
 import { SaveBook$Params } from '../fn/book/save-book';
 import { updateArchivedStatus } from '../fn/book/update-archived-status';
 import { UpdateArchivedStatus$Params } from '../fn/book/update-archived-status';
+import { updateShareableStatus } from '../fn/book/update-shareable-status';
+import { UpdateShareableStatus$Params } from '../fn/book/update-shareable-status';
 import { uploadBookCoverPicture } from '../fn/book/upload-book-cover-picture';
 import { UploadBookCoverPicture$Params } from '../fn/book/upload-book-cover-picture';
 
@@ -143,6 +145,31 @@ export class BookService extends BaseService {
    */
   borrowBook(params: BorrowBook$Params, context?: HttpContext): Observable<number> {
     return this.borrowBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `updateShareableStatus()` */
+  static readonly UpdateShareableStatusPath = '/books/shareable/{book-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateShareableStatus()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateShareableStatus$Response(params: UpdateShareableStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return updateShareableStatus(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateShareableStatus$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateShareableStatus(params: UpdateShareableStatus$Params, context?: HttpContext): Observable<number> {
+    return this.updateShareableStatus$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }

@@ -1,38 +1,119 @@
-<div class="container-fluid card login-container">
-  <h3 class="text-center">Login</h3>
-  <hr />
-  <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
-    <p *ngFor="let msg of errorMsg">{{ msg }}</p>
-  </div>
-  <div class="mb-3">
-    <label for="login" class="form-label">Email address</label>
-    <input
-      [(ngModel)]="authReques.email"
-      type="email"
-      class="form-control"
-      id="login"
-      placeholder="name@example.com"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input
-      [(ngModel)]="authReques.password"
-      type="password"
-      class="form-control"
-      id="password"
-      placeholder="Password"
-    />
-  </div>
-  <div class="d-flex justify-content-between mb-3">
-    <button type="button" class="btn btn-primary" (click)="login()">
-      <em class="fas fa-sign-in-alt">&nbsp;Sing in</em>
-    </button>
-    <div>
-      Don't have an account?&nbsp;
-    <button type="button" class="btn btn-link" (click)="register()">
-      Register
-    </button>
-  </div>
+<!-- login.component.html -->
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-box">
+      <!-- Login Header -->
+      <div class="login-header">
+        <h2>Welcome Back</h2>
+        <p>Please enter your credentials to login</p>
+      </div>
+
+      <!-- Login Form -->
+      <form
+        class="login-form"
+        (ngSubmit)="login(loginForm)"
+        #loginForm="ngForm"
+        novalidate
+      >
+        <!-- Email Input -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="authRequest.email"
+              #emailInput="ngModel"
+              required
+              email
+              placeholder="Enter your email"
+              [class.input-error]="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+            />
+          </div>
+          <small
+            *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+            class="error-text"
+          >
+            Please enter a valid email
+          </small>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              name="password"
+              [(ngModel)]="authRequest.password"
+              #passwordInput="ngModel"
+              required
+              minlength="6"
+              placeholder="Enter your password"
+              [class.input-error]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+            >
+              <i
+                class="fas"
+                [class.fa-eye]="!showPassword"
+                [class.fa-eye-slash]="showPassword"
+              ></i>
+            </button>
+          </div>
+          <small
+            *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+            class="error-text"
+          >
+            Password must be at least 6 characters
+          </small>
+        </div>
+
+        <!-- Global Error Messages -->
+        <div *ngIf="errorMsg.length > 0" class="error-container">
+          <p *ngFor="let error of errorMsg" class="error-text">
+            {{ error }}
+          </p>
+        </div>
+
+        <!-- Forgot Password Link -->
+        <div class="forgot-password">
+          <a href="javascript:void(0)" (click)="forgotPassword()">
+            Forgot Password?
+          </a>
+        </div>
+
+        <!-- Login Button -->
+        <button
+          type="submit"
+          class="login-button"
+          [disabled]="loginForm.invalid || loginStatus === 'loading'"
+          [ngClass]="{
+            'loading': loginStatus === 'loading',
+            'success': loginStatus === 'success',
+            'error': loginStatus === 'error'
+          }"
+        >
+          <span *ngIf="loginStatus !== 'success'">Login</span>
+        </button>
+
+        <!-- Register Link -->
+        <div class="register-link">
+          <p>
+            Don't have an account?
+            <a href="javascript:void(0)" (click)="register()">
+              Register here
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
