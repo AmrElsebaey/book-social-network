@@ -1,4 +1,5 @@
 <div class="container">
+  <!-- Activation Success or Error Message -->
   <div class="activation-container" *ngIf="submitted; else codeForm">
     <div class="activation-message" *ngIf="isOkay; else activationError">
       <h2>Activation Successful!</h2>
@@ -10,20 +11,17 @@
     <ng-template #activationError>
       <div class="activation-error">
         <h2>Activation Failed!</h2>
-
         <div class="error-message" *ngIf="message">
           {{ message }}
         </div>
-
-        <button
-          class="btn btn-try-again btn-primary"
-          (click)="submitted = false"
-        >
+        <button class="btn btn-try-again btn-primary" (click)="submitted = false">
           Try Again
         </button>
       </div>
     </ng-template>
   </div>
+
+  <!-- Activation Code Input Form -->
   <ng-template #codeForm>
     <div class="activation-container">
       <h2>Type your activation code</h2>

@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-returned-book',
-  standalone: true,
-  imports: [FormsModule,CommonModule],
   templateUrl: './returned-book.component.html',
   styleUrl: './returned-book.component.scss'
 })

@@ -5,8 +5,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-book-card',
-  standalone: true,
-  imports: [RatingComponent,CommonModule],
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.scss',
 })
@@ -31,6 +29,7 @@ export class BookCardComponent {
     return 'https://source.unsplash.com/user/c_v_r/1900x800';
   }
 
+  @Input()
   set manage(value: boolean) {
     this._manage = value;
   }

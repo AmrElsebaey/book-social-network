@@ -1,42 +1,51 @@
 <h2>My returned books</h2>
-<hr>
+<hr />
 <div
   *ngIf="message"
-  class="alert "
-  [class.alert-danger]="level==='error'"
-  [class.alert-success]="level==='success'"
+  class="alert"
+  [class.alert-danger]="level === 'error'"
+  [class.alert-success]="level === 'success'"
   role="alert"
 >
-  <p>{{message}}</p>
+  <p>{{ message }}</p>
 </div>
 <div>
   <table class="table">
     <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">ISBN</th>
-      <th scope="col">Rate</th>
-      <th scope="col"><i class="fas fa-cogs"></i></th>
-    </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Rate</th>
+        <th scope="col"><i class="fas fa-cogs"></i></th>
+      </tr>
     </thead>
     <tbody>
-    <tr
-      *ngFor="let book of returnedBooks.content; let index = index">
-      <th scope="row">{{ index + 1 }}</th>
-      <td>{{ book.title }}</td>
-      <td>{{ book.author }}</td>
-      <td>{{ book.isbn }}</td>
-      <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
-      <td>
-        <div class="d-flex gap-2">
-          <i *ngIf="book.returned" class="fa-regular fa-paper-plane text-primary"></i>
-          <i *ngIf="!book.returned" class="fa-solid fa-paper-plane text-success"></i>
-          <i class="fa-solid fa-circle-check" (click)="approveBookReturn(book)" [class.text-success]="book.returnApproved"></i>
-        </div>
-      </td>
-    </tr>
+      <tr *ngFor="let book of returnedBooks.content; let index = index">
+        <th scope="row">{{ index + 1 }}</th>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.isbn }}</td>
+        <td><i class="fas fa-star text-warning"></i> {{ book.rate }}</td>
+        <td>
+          <div class="d-flex gap-2">
+            <i
+              *ngIf="book.returned"
+              class="fa-regular fa-paper-plane text-primary"
+            ></i>
+            <i
+              *ngIf="!book.returned"
+              class="fa-solid fa-paper-plane text-success"
+            ></i>
+            <i
+              class="fa-solid fa-circle-check"
+              (click)="approveBookReturn(book)"
+              [class.text-success]="book.returnApproved"
+            ></i>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
   <div class="d-flex justify-content-center mt-3">
@@ -64,16 +73,14 @@
             <i class="fa-solid fa-angle-left"></i>
           </a>
         </li>
-        <li
-          class="page-item"
-          *ngFor="let pageIndex of pages"
-        >
+        <li class="page-item" *ngFor="let pageIndex of pages">
           <a
             (click)="gotToPage(pageIndex)"
             class="page-link"
             [class.active]="page === pageIndex"
             href="javascript:void(0)"
-          >{{ pageIndex + 1 }}</a>
+            >{{ pageIndex + 1 }}</a
+          >
         </li>
         <li class="page-item">
           <a

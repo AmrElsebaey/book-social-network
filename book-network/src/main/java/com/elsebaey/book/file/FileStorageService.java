@@ -1,6 +1,5 @@
 package com.elsebaey.book.file;
 
-import com.elsebaey.book.book.Book;
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,16 +34,16 @@ public class FileStorageService {
             @Nonnull MultipartFile sourceFile,
             @Nonnull String fileUploadSubPath) {
         final String finalUploadPath = this.fileUploadPath + separator + fileUploadSubPath;
-        File targetFile = new File(fileUploadPath);
+        File targetFile = new File(finalUploadPath);
         if (!targetFile.exists()) {
             boolean folderCreated = targetFile.mkdirs();
             if (!folderCreated) {
-                log.warn("Unable to create folder: {}", fileUploadPath);
+                log.warn("Unable to create folder: {}", finalUploadPath);
                 return null;
             }
         }
         final String fileExtension = getFileExtension(sourceFile.getOriginalFilename());
-        String targetFilePath = finalUploadPath + separator + System.currentTimeMillis() +'.' + fileExtension;
+        String targetFilePath = finalUploadPath + separator + System.currentTimeMillis() + '.' + fileExtension;
         Path targetPath = Paths.get(targetFilePath);
         try {
             Files.write(targetPath, sourceFile.getBytes());
@@ -57,9 +56,9 @@ public class FileStorageService {
     }
 
     private String getFileExtension(String filename) {
-        if(filename == null || filename.isEmpty()) {
+        if (filename == null || filename.isEmpty()) {
             return null;
-    }
+        }
         int lastDotIndex = filename.lastIndexOf('.');
         if (lastDotIndex == -1) {
             return null;

@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BookResponse, BorrowedBookResponse, FeedbackRequest, PageResponseBorrowedBookResponse } from '../../../../services/models';
 import { BookService, FeedbackService } from '../../../../services/services';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RatingComponent } from '../../components/rating/rating.component';
+
 
 @Component({
   selector: 'app-borrowed-book-list',
-  standalone: true,
-  imports: [FormsModule,CommonModule,RatingComponent],
   templateUrl: './borrowed-book-list.component.html',
   styleUrl: './borrowed-book-list.component.scss'
 })

@@ -1,3 +1,111 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/* Color Variables */
+$primary-color: #007bff;
+$error-color: #dc3545;
+$background-color: #f4f4f4;
+
+/* Wrapper Styles */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $background-color;
+  padding: 20px;
+}
+
+/* Container Styles */
+.container {
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Box Styles */
+.box {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+}
+
+/* Button Styles */
+.button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: $primary-color;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:disabled {
+    background-color: lighten($primary-color, 20%);
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+    }
+
+    &.input-error {
+      border-color: $error-color;
+    }
+  }
+}
+
+/* Error Text Styles */
+.error-text {
+  color: $error-color;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Error Container Styles */
+.error-container {
+  background-color: lighten($error-color, 40%);
+  color: $error-color;
+  border: 1px solid $error-color;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  .box {
+    padding: 25px;
+  }
+}

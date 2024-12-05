@@ -7,28 +7,15 @@
       </div>
 
       <!-- Error Handling -->
-      <div
-        *ngIf="errorMsg.length"
-        class="error-alert"
-      >
+      <div *ngIf="errorMsg.length" class="error-alert">
         <ul>
           <li *ngFor="let msg of errorMsg">{{ msg }}</li>
         </ul>
-        <button
-          type="button"
-          class="close-btn"
-          (click)="clearErrors()"
-        >
-          &times;
-        </button>
+        <button type="button" class="close-btn" (click)="clearErrors()">&times;</button>
       </div>
 
       <!-- Registration Form -->
-      <form
-        class="register-form"
-        (ngSubmit)="register()"
-        #registrationForm="ngForm"
-      >
+      <form class="register-form" (ngSubmit)="register()" #registrationForm="ngForm">
         <div class="form-row">
           <div class="form-group half-width">
             <label for="firstName">First Name</label>
@@ -43,12 +30,10 @@
                 required
                 minlength="2"
                 #firstNameInput="ngModel"
+                [class.input-error]="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"
               />
             </div>
-            <div
-              *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"
-              class="error-text"
-            >
+            <div *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)" class="error-text">
               <small *ngIf="firstNameInput.errors?.['required']">First Name is required</small>
               <small *ngIf="firstNameInput.errors?.['minlength']">Minimum 2 characters</small>
             </div>
@@ -67,12 +52,10 @@
                 required
                 minlength="2"
                 #lastNameInput="ngModel"
+                [class.input-error]="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"
               />
             </div>
-            <div
-              *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"
-              class="error-text"
-            >
+            <div *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)" class="error-text">
               <small *ngIf="lastNameInput.errors?.['required']">Last Name is required</small>
               <small *ngIf="lastNameInput.errors?.['minlength']">Minimum 2 characters</small>
             </div>
@@ -92,12 +75,10 @@
               required
               email
               #emailInput="ngModel"
+              [class.input-error]="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
             />
           </div>
-          <div
-            *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
-            class="error-text"
-          >
+          <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="error-text">
             <small *ngIf="emailInput.errors?.['required']">Email is required</small>
             <small *ngIf="emailInput.errors?.['email']">Invalid email format</small>
           </div>
@@ -116,42 +97,36 @@
               required
               minlength="8"
               #passwordInput="ngModel"
-            />
-            <button
-              type="button"
-              class="password-toggle"
-              (click)="togglePasswordVisibility()"
-            >
-              <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
-            </button>
+              [class.input-error]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+              />
+              <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </button>
+            </div>
+            <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="error-text">
+              <small *ngIf="passwordInput.errors?.['required']">Password is required</small>
+              <small *ngIf="passwordInput.errors?.['minlength']">Minimum 8 characters</small>
+            </div>
           </div>
-          <div
-            *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
-            class="error-text"
+
+          <button
+            type="submit"
+            class="register-button"
+            [ngClass]="{
+              'loading': registrationStatus === 'loading',
+              'success': registrationStatus === 'success',
+              'error': registrationStatus === 'error'
+            }"
+            [disabled]="registrationForm.invalid || registrationStatus === 'loading'"
           >
-            <small *ngIf="passwordInput.errors?.['required']">Password is required</small>
-            <small *ngIf="passwordInput.errors?.['minlength']">Minimum 8 characters</small>
+            <span>Create Account</span>
+          </button>
+
+          <div class="login-link">
+            Already have an account?
+            <a href="javascript:void(0)" (click)="login()">Sign In</a>
           </div>
-        </div>
-
-        <button
-          type="submit"
-          class="register-button"
-          [ngClass]="{
-            'loading': registrationStatus === 'loading',
-            'success': registrationStatus === 'success',
-            'error': registrationStatus === 'error'
-          }"
-          [disabled]="registrationForm.invalid || registrationStatus === 'loading'"
-        >
-          <span>Create Account</span>
-        </button>
-
-        <div class="login-link">
-          Already have an account?
-          <a href="javascript:void(0)" (click)="login()">Sign In</a>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
-</div>
