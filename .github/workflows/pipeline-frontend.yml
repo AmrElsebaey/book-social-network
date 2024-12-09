@@ -1,0 +1,42 @@
+name: BSN Frontend Pipeline
+
+on:
+  push:
+    branches:
+      - ci/pipeline
+    paths:
+      - book-network-ui/**
+      - docker/frontend/**
+      - 'docker-compose.yml'
+      - .github/workflows/*-frontend.yml
+jobs:
+  build-image:
+    name: Build FE Docker image
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract project version
+        id: extract_version
+        run: |
+          cd book-network-ui
+          echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: book-network-ui
+          file: docker/frontend/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:latest,${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:${{ steps.extract_version.outputs.VERSION }}
+
+ 

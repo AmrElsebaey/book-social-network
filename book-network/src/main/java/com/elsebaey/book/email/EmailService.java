@@ -31,10 +31,10 @@ public class EmailService {
             String subject
     ) throws MessagingException {
         String templateName;
-        if(emailTemplateName == null){
+        if (emailTemplateName == null) {
             templateName = "confirm_email";
         } else {
-            templateName= emailTemplateName.name();
+            templateName = emailTemplateName.getName();
         }
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -43,7 +43,7 @@ public class EmailService {
                 MimeMessageHelper.MULTIPART_MODE_MIXED,
                 StandardCharsets.UTF_8.name()
         );
-        Map<String,Object> properties = new HashMap<>();
+        Map<String, Object> properties = new HashMap<>();
         properties.put("userName", userName);
         properties.put("confirmationUrl", confirmationUrl);
         properties.put("activationCode", activationCode);

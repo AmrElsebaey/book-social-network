@@ -1,0 +1,121 @@
+name: BSN Backend API Pipeline
+
+on:
+  push:
+    branches:
+      - ci/pipeline
+    paths:
+      - book-network/**
+      - docker/backend/**
+      - docker-compose.yml
+      - .github/workflows/*-backend.yml
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    name: Compile project
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Compile project
+        run: |
+          cd book-network
+          ./mvnw clean compile
+
+  unit-tests:
+    runs-on: self-hosted
+    name: Unit tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Running unit tests
+        run: |
+          cd book-network
+          ./mvnw clean test
+
+  build:
+    runs-on: self-hosted
+    name: Build backend
+    needs:
+      - unit-tests
+      - compile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Build backend
+        run: |
+          cd book-network
+          ./mvnw clean package
+
+  build-image:
+    runs-on: self-hosted
+    name: Build backend image
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          
+      - name: Build backend
+        run: |
+          cd book-network
+          ./mvnw clean package
+      - name: Extract project version
+        id: extract-version
+        run: |
+          cd book-network
+          echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: book-network
+          file: docker/backend/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/bsn-api:${{ steps.extract-version.outputs.VERSION }}
+          build-args: |
+            PROFILE=dev
+            APP_VERSION=${{ steps.extract-version.outputs.VERSION }}
+
+  
