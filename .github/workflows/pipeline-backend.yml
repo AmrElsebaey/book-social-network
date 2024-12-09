@@ -26,12 +26,10 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      - name: Give execute permission to mvnw
-        run: chmod +x ./mvnw
-
       - name: Compile project
         run: |
           cd book-network
+          chmod +x ./mvnw
           ./mvnw clean compile
 
   unit-tests:
