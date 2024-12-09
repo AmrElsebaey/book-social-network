@@ -73,6 +73,7 @@ jobs:
       - name: Build backend
         run: |
           cd book-network
+          chmod +x mvnw
           ./mvnw clean package
 
   build-image:
@@ -94,6 +95,7 @@ jobs:
       - name: Build backend
         run: |
           cd book-network
+          chmod +x mvnw
           ./mvnw clean package
       - name: Extract project version
         id: extract-version
