@@ -33,7 +33,7 @@ jobs:
           ./mvnw clean compile
 
   unit-tests:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: Unit tests
     steps:
       - name: Checkout code
@@ -53,7 +53,7 @@ jobs:
           ./mvnw clean test
 
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: Build backend
     needs:
       - unit-tests
@@ -76,7 +76,7 @@ jobs:
           ./mvnw clean package
 
   build-image:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: Build backend image
     needs: build
     steps:
