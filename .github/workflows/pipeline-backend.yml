@@ -121,6 +121,17 @@ jobs:
     runs-on: ubuntu-latest
     name: Build backend image
     needs: build
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: bsn
+          POSTGRES_USER: username
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd="pg_isready -U username" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -142,6 +153,9 @@ jobs:
           EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/bsn
+          SPRING_DATASOURCE_USERNAME: username
+          SPRING_DATASOURCE_PASSWORD: password
 
       - name: Extract project version
         id: extract-version
