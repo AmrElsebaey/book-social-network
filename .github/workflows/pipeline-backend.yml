@@ -3,7 +3,7 @@ name: BSN Backend API Pipeline
 on:
   push:
     branches:
-      - ci/pipeline
+      - main
     paths:
       - book-network/**
       - docker/backend/**
@@ -89,7 +89,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-          
+
       - name: Build backend
         run: |
           cd book-network
