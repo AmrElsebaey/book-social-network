@@ -50,6 +50,7 @@ jobs:
       - name: Running unit tests
         run: |
           cd book-network
+          chmod +x mvnw
           ./mvnw clean test
 
   build:
