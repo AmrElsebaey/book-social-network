@@ -31,6 +31,10 @@ jobs:
           cd book-network
           chmod +x ./mvnw
           ./mvnw clean compile
+        env:
+          EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -52,6 +56,10 @@ jobs:
           cd book-network
           chmod +x mvnw
           ./mvnw clean test
+        env:
+          EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
 
   build:
     runs-on: ubuntu-latest
@@ -76,6 +84,10 @@ jobs:
           cd book-network
           chmod +x mvnw
           ./mvnw clean package
+        env:
+          EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
 
   build-image:
     runs-on: ubuntu-latest
@@ -98,6 +110,11 @@ jobs:
           cd book-network
           chmod +x mvnw
           ./mvnw clean package
+        env:
+          EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
+
       - name: Extract project version
         id: extract-version
         run: |
