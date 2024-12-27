@@ -3,8 +3,9 @@ package com.elsebaey.book.book;
 import com.elsebaey.book.common.BaseEntity;
 import com.elsebaey.book.feedback.Feedback;
 import com.elsebaey.book.history.BookTransactionHistory;
-import com.elsebaey.book.user.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,9 +30,9 @@ public class Book extends BaseEntity {
     private boolean archived;
     private boolean shareable;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+//    @ManyToOne
+//    @JoinColumn(name = "owner_id")
+//    private User owner;
 
     @OneToMany(mappedBy = "book")
     private List<Feedback> feedbacks;
@@ -41,7 +42,7 @@ public class Book extends BaseEntity {
 
     @Transient
     public double getRate() {
-        if(feedbacks.isEmpty() || feedbacks == null){
+        if (feedbacks.isEmpty() || feedbacks == null) {
             return 0.0;
         }
         var rate = feedbacks.stream().mapToDouble(Feedback::getRating).average().orElse(0.0);

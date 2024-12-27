@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class BookMapper {
 
     public Book toBook(BookRequest request) {
-        return  Book.builder()
+        return Book.builder()
                 .id(request.id())
                 .title(request.title())
                 .author(request.author())
@@ -19,7 +19,7 @@ public class BookMapper {
                 .build();
     }
 
-    public BookResponse toBookResponse( Book book) {
+    public BookResponse toBookResponse(Book book) {
         return BookResponse.builder()
                 .id(book.getId())
                 .title(book.getTitle())
@@ -29,7 +29,7 @@ public class BookMapper {
                 .rate(book.getRate())
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
-                .owner(book.getOwner().fullName())
+//                .owner(book.getOwner().fullName())
                 .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }

@@ -2,7 +2,7 @@ package com.elsebaey.book.history;
 
 import com.elsebaey.book.book.Book;
 import com.elsebaey.book.common.BaseEntity;
-import com.elsebaey.book.user.User;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -24,9 +24,12 @@ public class BookTransactionHistory extends BaseEntity {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private String userId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     private boolean returned;
     private boolean returnApproved;

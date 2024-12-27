@@ -2,11 +2,13 @@ package com.elsebaey.book.role;
 
 import com.elsebaey.book.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,9 +18,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "role")
-@EntityListeners(AuditingEntityListener.class)
+//@Entity
+//@Table(name = "role")
+//@EntityListeners(AuditingEntityListener.class)
 public class Role {
 
     @Id

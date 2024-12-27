@@ -1,7 +1,7 @@
 /* Global Styles */
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
-
+@import "ngx-toastr/toastr";
 /* Color Variables */
 $primary-color: #007bff;
 $error-color: #dc3545;

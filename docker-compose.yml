@@ -21,10 +21,12 @@ services:
     ports:
       - "1080:1080"
       - "1025:1025"
+    networks:
+      - spring-demo
 
   bsn-api:
     container_name: bsn-api
-    image: bsn/bsn:1.0.4
+    image: bsn/bsn:1.0.6
     ports:
       - "8088:8088"
     networks:
@@ -42,7 +44,18 @@ services:
     depends_on:
       - bsn-api
 
-
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:26.0.7
+    ports:
+      - "9090:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - spring-demo
+    command:
+      - "start-dev"
 networks:
   spring-demo:
     driver: bridge

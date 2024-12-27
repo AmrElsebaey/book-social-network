@@ -13,29 +13,27 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  mail:
-    host: ${EMAIL_HOST_NAME}
-    port: 465
-    username: ${EMAIL_USER_NAME}
-    password: ${EMAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          ssl:
-            enable: true
-            trust: "*"
-        starttls:
-          enable: true
-    protocol: smtp
-application:
+  #  mail:
+  #    host: localhost
+  #    port: 1025
+  #    username: amr
+  #    password: amr
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          auth: true
+  #          ssl:
+  #            enable: true
+  #            trust: "*"
+  #        starttls:
+  #          enable: true
+  #    protocol: smtp
   security:
-    jwt:
-      secretKey: 92c9020ef7d92e560952808e67ad8527ddf131681cb04def89af23bc6c24b7ec
-      expiration: 86400000
-  mailing:
-    frontend:
-      activation-url: http://localhost:4200/activate-account
+    oauth2:
+      resourceserver:
+        jwt:
+          uri: "http://localhost:9090/realms/book-network-social"
+application:
   file:
     upload:
       photos-output-path: ./upload

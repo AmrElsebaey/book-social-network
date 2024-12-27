@@ -1,21 +1,17 @@
-<!-- login.component.html -->
-<div class="login-wrapper">
+<!-- <div class="login-wrapper">
   <div class="login-container">
     <div class="login-box">
-      <!-- Login Header -->
       <div class="login-header">
         <h2>Welcome Back</h2>
         <p>Please enter your credentials to login</p>
       </div>
 
-      <!-- Login Form -->
       <form
         class="login-form"
         (ngSubmit)="login(loginForm)"
         #loginForm="ngForm"
         novalidate
       >
-        <!-- Email Input -->
         <div class="form-group">
           <label for="email">Email Address</label>
           <div class="input-wrapper">
@@ -40,7 +36,6 @@
           </small>
         </div>
 
-        <!-- Password Input -->
         <div class="form-group">
           <label for="password">Password</label>
           <div class="input-wrapper">
@@ -76,21 +71,18 @@
           </small>
         </div>
 
-        <!-- Global Error Messages -->
         <div *ngIf="errorMsg.length > 0" class="error-container">
           <p *ngFor="let error of errorMsg" class="error-text">
             {{ error }}
           </p>
         </div>
 
-        <!-- Forgot Password Link -->
         <div class="forgot-password">
           <a href="javascript:void(0)" (click)="forgotPassword()">
             Forgot Password?
           </a>
         </div>
 
-        <!-- Login Button -->
         <button
           type="submit"
           class="login-button"
@@ -104,7 +96,6 @@
           <span *ngIf="loginStatus !== 'success'">Login</span>
         </button>
 
-        <!-- Register Link -->
         <div class="register-link">
           <p>
             Don't have an account?
@@ -116,4 +107,4 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->

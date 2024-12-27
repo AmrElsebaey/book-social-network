@@ -5,6 +5,7 @@ import {
   BookResponse,
   PageResponseBookResponse,
 } from '../../../../services/models';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-list',
@@ -19,7 +20,11 @@ export class BookListComponent implements OnInit {
   message = '';
   level: 'success' | 'error' = 'success';
 
-  constructor(private bookService: BookService, private router: Router) {}
+  constructor(
+    private bookService: BookService,
+    private router: Router,
+    private toastService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.findAllBooks();
@@ -79,13 +84,13 @@ export class BookListComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.level = 'success';
-          this.message = 'Book successfully added to your list';
+          this.toastService.success(
+            'Book successfully added to your list',
+            'Done!'
+          );
         },
         error: (err) => {
-          console.log(err);
-          this.level = 'error';
-          this.message = err.error.error;
+          this.toastService.error(err.error.error, 'Oups!!');
         },
       });
   }

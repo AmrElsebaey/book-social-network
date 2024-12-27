@@ -4,13 +4,11 @@ import com.elsebaey.book.book.Book;
 import com.elsebaey.book.book.BookRepository;
 import com.elsebaey.book.common.PageResponse;
 import com.elsebaey.book.exception.OperationNotPermittedException;
-import com.elsebaey.book.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +29,8 @@ public class FeedbackService {
         if (!book.isShareable() || book.isArchived()) {
             throw new OperationNotPermittedException("You cannot give feedback for this book");
         }
-        User user = (User) connectedUser.getPrincipal();
-        if (user.getId().equals(book.getOwner().getId())) {
+//        User user = (User) connectedUser.getPrincipal();
+        if (connectedUser.getName().equals(book.getCreatedBy())) {
             throw new OperationNotPermittedException("You cannot give feedback for your own book");
         }
         Feedback feedback = feedbackMapper.toFeedback(request);
@@ -41,10 +39,10 @@ public class FeedbackService {
 
     public PageResponse<FeedbackResponse> findAllFeedbacksByBook(Integer bookId, Integer page, Integer size, Authentication connectedUser) {
         Pageable pageable = PageRequest.of(page, size);
-        User user = (User) connectedUser.getPrincipal();
+//        User user = (User) connectedUser.getPrincipal();
         Page<Feedback> feedbacks = repository.findAllByBookId(bookId, pageable);
-        List<FeedbackResponse> feedbackResponses= feedbacks.stream()
-                .map(f -> feedbackMapper.toFeedbackResponse(f, user.getId()))
+        List<FeedbackResponse> feedbackResponses = feedbacks.stream()
+                .map(f -> feedbackMapper.toFeedbackResponse(f, connectedUser.getName()))
                 .toList();
 
         return new PageResponse<>(
